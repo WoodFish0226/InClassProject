@@ -9,11 +9,11 @@ public class player {
     int wealth;
     int luck;
     int loveReceiving;
-    int gameMode;
+    String gameMode;
     int skillPoints = 100;
-    public player (){
+    public player (){ //default inout
         age = 0;
-        gameMode = 1;   //USA
+        gameMode = "USA";   //USA
         this.IQ = (int)(Math.random() * 100) + 1;
         skillPoints -= IQ;
         this.EQ = (int)(Math.random() * skillPoints) + 1;
@@ -28,7 +28,7 @@ public class player {
         skillPoints -= loveReceiving;
         this.name = "Darwin";
         luck = (int)(Math.random() * 99) + 1;
-    }
+    } //default
 
     public void grow(){
         age++;
@@ -55,4 +55,5 @@ public class player {
     public void name(String name){
         this.name = name;
     }
+    public void setGameMode (String gameMode){this.gameMode = gameMode;}
 }

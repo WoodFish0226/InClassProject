@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
+import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,6 +9,7 @@ public class Main {
         player darwin = new player();
         int Input;
         System.out.println("Welcome to the life simulation");
+        System.out.println();
         System.out.println("please select your game mode by input the corresponding key:");
         System.out.println("game mode:");
         System.out.println("1:USA");
@@ -16,15 +17,15 @@ public class Main {
         System.out.println("3:Europe");
         System.out.println("4:Africa");
         Input = scan.nextInt();
-        switch (Input){
+        switch (Input) {
             case 1:
-                player.se ("USA");
+                darwin.setGameMode("USA");
             case 2:
-                stats.add("Asia");
+                darwin.setGameMode("Asia");
             case 3:
-                stats.add("Europe");
+                darwin.setGameMode("Europe");
             case 4:
-                stats.add("Africa");
+                darwin.setGameMode("Africa");
         }
         int skillPoints = 100;
         boolean notPassing = true;
@@ -35,16 +36,16 @@ public class Main {
             try {
                 Input = scan.nextInt();
                 if (Input <= 100 && Input >= 0) {
-                    stats.add(String.valueOf(Input));
+                    darwin.setIQ(Input);
                     skillPoints -= Input;
                     notPassing = false;
                 } else {
                     System.out.println("out of range, please re-input:");
                 }
-            }catch (InputMismatchException e){
+            } catch (InputMismatchException e) {
                 System.out.println("out of range, please re-input:");
             }
-        }
+        } //set IQ
         notPassing = true;
         while (notPassing) {
             if (skillPoints <= 100 && Input > 0) {
@@ -53,82 +54,82 @@ public class Main {
                 try {
                     Input = scan.nextInt();
                     if (Input <= skillPoints) {
-                        stats.add(String.valueOf(Input));
+                        darwin.setEQ(Input);
                         skillPoints -= Input;
                         notPassing = false;
-                    }else{
+                    } else {
                         System.out.println("out of range, please re-input:");
                     }
-                }catch (InputMismatchException e){
+                } catch (InputMismatchException e) {
                     System.out.println("out of range, please re-input:");
                 }
-            }else{
+            } else {
                 System.out.println("you have no more point to distribute");
                 notPassing = false;
             }
-        }
+        } // EQ
         notPassing = true;
         while (notPassing) {
             if (skillPoints <= 100 && Input > 0) {
                 System.out.println("out of " + skillPoints + " how much you want to give for your look?");
-                try{
+                try {
                     Input = scan.nextInt();
                     if (Input <= skillPoints) {
-                        stats.add(String.valueOf(Input));
-                        skillPoints -=Input;
+                        darwin.setLook(Input);
+                        skillPoints -= Input;
                         notPassing = false;
-                    }else{
+                    } else {
                         System.out.println("out of range, please re-input:");
                     }
-            }catch (InputMismatchException e){
-                System.out.println("out of range, please re-input:");
-            }
-            }else{
+                } catch (InputMismatchException e) {
+                    System.out.println("out of range, please re-input:");
+                }
+            } else {
 //                System.out.println("you have no more point to distribute");
                 notPassing = false;
             }
-        }
+        } // set look
         notPassing = true;
         while (notPassing) {
             if (skillPoints <= 100 && Input > 0) {
                 System.out.println("out of " + skillPoints + " how much you want to give for your health?");
-                try{
+                try {
                     if (Input <= skillPoints) {
-                        stats.add(String.valueOf(Input));
-                        skillPoints -=Input;
+                        darwin.setHealth(Input);
+                        skillPoints -= Input;
                         notPassing = false;
-                    }else{
+                    } else {
                         System.out.println("out of range, please re-input:");
                     }
-                }catch (InputMismatchException e){
+                } catch (InputMismatchException e) {
                     System.out.println("out of range, please re-input:");
                 }
-            }else{
+            } else {
 //                System.out.println("you have no more point to distribute");
                 notPassing = false;
             }
-        }
+        } //set health
         notPassing = true;
         while (notPassing) {
             if (skillPoints <= 100 && Input > 0) {
                 System.out.println("out of " + skillPoints + " how much you want to give for your wealth?");
                 Input = scan.nextInt();
-                try{
+                try {
                     if (Input <= skillPoints) {
-                        stats.add(String.valueOf(Input));
-                        skillPoints -=Input;
+                        darwin.setHealth(Input);
+                        skillPoints -= Input;
                         notPassing = false;
-                    }else{
+                    } else {
                         System.out.println("out of range, please re-input:");
                     }
-                }catch (InputMismatchException e){
+                } catch (InputMismatchException e) {
                     System.out.println("out of range, please re-input:");
                 }
-            }else{
+            } else {
 //                System.out.println("you have no more point to distribute");
                 notPassing = false;
             }
-        }
+        }// set wealth
         notPassing = true;
         while (notPassing) {
             if (skillPoints <= 100 && Input > 0) {
@@ -136,20 +137,21 @@ public class Main {
                 Input = scan.nextInt();
                 try {
                     if (Input <= skillPoints) {
-                        stats.add(String.valueOf(Input));
+                        darwin.loveReceiving(Input);
                         skillPoints -= Input;
                         notPassing = false;
                     } else {
                         System.out.println("out of range, please re-input:");
                     }
-                }catch (InputMismatchException e){
+                } catch (InputMismatchException e) {
                     System.out.println("out of range, please re-input:");
                 }
-            }else{
+            } else {
 //                System.out.println("you have no more point to distribute");
                 notPassing = false;
             }
-        }
+        }//set family love
     }
+
 
 }
