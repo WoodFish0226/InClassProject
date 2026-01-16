@@ -47,10 +47,10 @@ public class ChineseUtil {
 
         // Prepare the byte array for encoding
         byte[] b = new byte[2];
-        b[0] = (byte) (highPos & 0xFF);  // Mask the value to ensure it fits within a byte (0-255)
-        b[1] = (byte) (lowPos & 0xFF);   // Mask the value to ensure it fits within a byte (0-255)
+        b[0] = (byte) (highPos & 0xFF);
+        b[1] = (byte) (lowPos & 0xFF);
 
-        // Convert the byte array to a string using the GBK encoding
+
         return new String(b, Charset.forName("GBK"));
     }
     public static void main(String[] args) {

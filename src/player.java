@@ -1,16 +1,19 @@
+
 public class player {
-    int age;
-    String name;
-    boolean alive = true;
-    int IQ;
-    int EQ;
-    int look;
-    int health;
-    int wealth;
-    int luck;
-    int loveReceiving;
-    String gameMode;
-    int skillPoints = 100;
+    private int age;
+    private String name;
+    private boolean alive = true;
+    private int IQ;
+    private int EQ;
+    private int look;
+    private int health;
+    private int wealth;
+    private int luck;
+    private int loveReceiving;
+    private String gameMode;
+    private int skillPoints = 100;
+    private boolean boy;
+    private int mentalHealth = 100;
     public player (){ //default inout
         age = 0;
         gameMode = "USA";   //USA
@@ -56,4 +59,28 @@ public class player {
         this.name = name;
     }
     public void setGameMode (String gameMode){this.gameMode = gameMode;}
+    public void setGender(int EvenOrOdd){boy = EvenOrOdd % 2 == 1;}
+    public void setMentalHealth(int mentalHealth){this.mentalHealth = mentalHealth;}
+
+    public String getGameMode(){return gameMode;}
+    public String getName(){return name;}
+    public int getIQ(){return IQ;}
+    public int getEQ(){return EQ;}
+    public int getLook(){return look;}
+    public int getHealth(){return health;}
+    public int getWealth(){return wealth;}
+    public int getLove(){return loveReceiving;}
+    public int getLuck(){return luck;}
+    public String getGender(){
+        if(boy)return "male";
+        else return "female";
+    }
+    public void increaseEQBy(int integer){EQ += integer;}
+    public void increaseIQBy(int integer){IQ += integer;}
+    public void increaseLookBy(int integer){look += integer;}
+    public void increaseHealthBy(int integer){health += integer;}
+    public void increaseWealthBy(int integer){wealth += integer;}
+    public void increaseLoveReceivingBy(int integer){loveReceiving += integer;}
+    public void increaseMentalHealthBy(int integer){mentalHealth += integer;}
+    public void increaseLuckBy(int integer){luck += integer;}
 }
