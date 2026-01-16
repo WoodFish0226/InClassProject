@@ -14,16 +14,18 @@ public class player {
     private int skillPoints = 100;
     private boolean boy;
     private int mentalHealth = 100;
+    private String BornIn;
+
     public player (){ //default inout
         age = 0;
         gameMode = "USA";   //USA
-        this.IQ = (int)(Math.random() * 100) + 1;
+        this.IQ = (int)(Math.random() * 30) + 1;
         skillPoints -= IQ;
-        this.EQ = (int)(Math.random() * skillPoints) + 1;
+        this.EQ = (int)(Math.random() * (skillPoints/3)) + 1;
         skillPoints -= EQ;
-        this.look= (int)(Math.random() * skillPoints) + 1;
+        this.look= (int)(Math.random() * (skillPoints/2)) + 1;
         skillPoints -= look;
-        this.health= (int)(Math.random() * skillPoints) + 1;
+        this.health= (int)(Math.random() * (skillPoints/2)) + 1;
         skillPoints -= health;
         this.wealth= (int)(Math.random() * skillPoints) + 1;
         skillPoints -= wealth;
@@ -61,8 +63,10 @@ public class player {
     public void setGameMode (String gameMode){this.gameMode = gameMode;}
     public void setGender(int EvenOrOdd){boy = EvenOrOdd % 2 == 1;}
     public void setMentalHealth(int mentalHealth){this.mentalHealth = mentalHealth;}
+    public void addAge(){age++;}
 
     public String getGameMode(){return gameMode;}
+    public int getAge(){return age;}
     public String getName(){return name;}
     public int getIQ(){return IQ;}
     public int getEQ(){return EQ;}
@@ -72,8 +76,8 @@ public class player {
     public int getLove(){return loveReceiving;}
     public int getLuck(){return luck;}
     public String getGender(){
-        if(boy)return "male";
-        else return "female";
+        if(boy)return "female";
+        else return "male";
     }
     public void increaseEQBy(int integer){EQ += integer;}
     public void increaseIQBy(int integer){IQ += integer;}
@@ -83,4 +87,25 @@ public class player {
     public void increaseLoveReceivingBy(int integer){loveReceiving += integer;}
     public void increaseMentalHealthBy(int integer){mentalHealth += integer;}
     public void increaseLuckBy(int integer){luck += integer;}
+
+    public player changes(player player ,String line){
+        line= line.toLowerCase();
+        line=line.substring(line.indexOf("("),line.indexOf(")"));
+        String[] Line = line.split(",");
+        for (String eachUnit : Line){
+            String each = eachUnit.substring(2);
+            int value = 1;
+            if (eachUnit.substring(0,1).equals("-")) {value = -1;}
+            if (each.equals("iq")){increaseIQBy(value);}
+            if (each.equals("eq")){increaseEQBy(value);}
+            if (each.equals("look")){increaseLookBy(value);}
+            if (each.equals("health")){increaseHealthBy(value);}
+            if (each.equals("wealth")){increaseWealthBy(value);}
+            if (each.equals("lovereceiving")){increaseLoveReceivingBy(value);}
+            if (each.equals("mentalhealth")){increaseMentalHealthBy(value);}
+            if (each.equals("luck")){increaseLuckBy(value);}
+        }
+        System.out.println("changed");
+        return player;
+    }
 }

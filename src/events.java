@@ -1,9 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.lang.module.FindException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.List;
 
 public class events {
     String gameMode;
@@ -11,15 +9,24 @@ public class events {
     int roll;
     int birth;
     boolean deaf;
+    String Born;
+    String city;
+    String condition;
+
     public events (String gameMode){
     this.gameMode = gameMode;
+    if (gameMode == "USA") city = "newyork";
+    if (gameMode == "Europe") city = "London";
+    if (gameMode == "Asia") city = "Shanghai";
+
     }
 
     boolean PlayerIsBadLuck;
     public player simulation (int age, player player){
         PlayerIsBadLuck = (player.getLuck() > 0.5);
-
-        switch (age){
+        ArrayList<String> fileData1to5Rich = getFileData("src/age1-5");
+        ArrayList<String> fileData1to5Poor = getFileData("src/age1-5Poor");
+        switch (age) {
             case 0: {
                 int roll = (int) (Math.random() * 35) + 1;
                 int line = roll - 1;
@@ -69,6 +76,7 @@ public class events {
                         player.increaseMentalHealthBy(4);
                         player.increaseHealthBy(-2);
                         break;
+                    //Positive family condition
                     case 11:
                         System.out.println(fileData.get(line));
                         break;
@@ -87,6 +95,7 @@ public class events {
                     case 16:
                         System.out.println(fileData.get(line));
                         break;
+                    //plain, ordinary life
                     case 17:
                         System.out.println(fileData.get(line));
                         player.increaseHealthBy(-2);
@@ -164,6 +173,7 @@ public class events {
                         player.loveReceiving(-4);
                         break;
 
+                    //sad lifes
                     case 31:
                         System.out.println(fileData.get(line));
                         player.increaseLuckBy(1);
@@ -185,7 +195,7 @@ public class events {
                     case 34:
                         System.out.println(fileData.get(line));
                         System.out.println("It is quiet Uptown");
-                        deaf=true;
+                        deaf = true;
                         break;
                     case 35:
                         System.out.println(fileData.get(line));
@@ -193,13 +203,79 @@ public class events {
                         player.increaseLuckBy(3);
                         player.setMentalHealth(0);
                         break;
-                }
-            }
+                    //mystical lives;
+                }//1-10 rich, 11-15 normal, 16-30 sad, 31 -35 mystical
+                //1-10 rich, 11-15 normal, 16-30 sad, 30 -35 mystical
                 birth = roll;
                 return player;
-            case 1:
+            }
+            case 1: {
+                if (roll + player.getWealth() < 41) {
+                    condition = "village";
+                }
+                if (roll + player.getWealth() < 26) {
+                    condition = "downtown";
+                }
+                if (roll + player.getWealth() < 21) {
+                    condition = "uptown";
+                }
                 System.out.println();
+                System.out.println("you live in the " + condition + " of " + city);
+                System.out.println();
+                return player;
+            }
+
             case 2:
+                if (!condition.equals("village")){
+                    int RandLine = (int)(Math.random() * 11);
+                    System.out.println(fileData1to5Rich.get(RandLine));
+                    player.changes(player, fileData1to5Rich.get(RandLine));
+                }else{
+                    int RandLine = (int)(Math.random() * 8);
+                    System.out.println(fileData1to5Poor.get(RandLine));
+                    player.changes(player, fileData1to5Poor.get(RandLine));
+                }
+                break;
+            case 3:
+                if (gameMode.equals("Asia")) {
+                    System.out.println("You start taking piano lessons and excel at them. (+IQ, -mentalHealth)");
+                    player.increaseIQBy(1);
+                    player.increaseMentalHealthBy(-2);
+                } else {
+                    if (!condition.equals("village")){
+                        int RandLine = (int)(Math.random() * 11);
+                        System.out.println(fileData1to5Rich.get(RandLine));
+                        player.changes(player, fileData1to5Rich.get(RandLine));
+                    }else{
+                        int RandLine = (int)(Math.random() * 8);
+                        System.out.println(fileData1to5Poor.get(RandLine));
+                        player.changes(player, fileData1to5Poor.get(RandLine));
+                    }
+                }
+                break;
+            case 4:
+                if (!condition.equals("village")){
+                    int RandLine = (int)(Math.random() * 11);
+                    System.out.println(fileData1to5Rich.get(RandLine));
+                    player.changes(player, fileData1to5Rich.get(RandLine));
+                }else{
+                    int RandLine = (int)(Math.random() * 8);
+                    System.out.println(fileData1to5Poor.get(RandLine));
+                    player.changes(player, fileData1to5Poor.get(RandLine));
+                }
+                break;
+            case 5:
+                if (!condition.equals("village")){
+                    int RandLine = (int)(Math.random() * 11);
+                    System.out.println(fileData1to5Rich.get(RandLine));
+                    player.changes(player, fileData1to5Rich.get(RandLine));
+                }else{
+                    int RandLine = (int)(Math.random() * 8);
+                    System.out.println(fileData1to5Poor.get(RandLine));
+                    player.changes(player, fileData1to5Poor.get(RandLine));
+                }
+                break;
+
         }
         return player;
     }

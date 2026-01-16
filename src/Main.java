@@ -34,7 +34,7 @@ public class Main {
                     darwin.name(scan.nextLine());
                 } else {
                     String tempName = util.RandName();
-                    System.out.println("ok, your random generated name is :" + tempName);
+                    System.out.println("ok, your randomly generated name is :" + tempName);
                     darwin.name(tempName);
                 }
                 System.out.println("would you like to be biologically male(1) or biologically female(2)?");
@@ -53,7 +53,6 @@ public class Main {
                 System.out.println("1:USA");
                 System.out.println("2:Asia");
                 System.out.println("3:Europe");
-                System.out.println("4:Africa");
                 Input = scan.nextInt();
                 switch (Input) {
                     case 1:
@@ -62,8 +61,6 @@ public class Main {
                         darwin.setGameMode("Asia");
                     case 3:
                         darwin.setGameMode("Europe");
-                    case 4:
-                        darwin.setGameMode("Africa");
                 }
             }//set birth region
             int skillPoints = 100;
@@ -176,31 +173,71 @@ public class Main {
                     }
                 }// set wealth
                 notPassing = true;
-                while (notPassing) {
-                    if (skillPoints <= 100 && Input > 0) {
-                        System.out.println("out of " + skillPoints + " how much you want to give for  how much love you will receive?");
-                        Input = scan.nextInt();
-                        try {
-                            if (Input <= skillPoints) {
-                                darwin.loveReceiving(Input);
-                                skillPoints -= Input;
-                                notPassing = false;
-                            } else {
-                                System.out.println("out of range, please re-input:");
-                            }
-                        } catch (InputMismatchException e) {
-                            System.out.println("out of range, please re-input:");
-                        }
-                    } else {
-//                System.out.println("you have no more point to distribute");
-                        notPassing = false;
-                    }
-                }//set family love
+//                while (notPassing) {
+//                    if (skillPoints <= 100 && Input > 0) {
+//                        System.out.println("out of " + skillPoints + " how much you want to give for  how much love you will receive?");
+//                        Input = scan.nextInt();
+//                        try {
+//                            if (Input <= skillPoints) {
+                System.out.println("you have "+skillPoints + "points for how much love you will receive");
+                                darwin.loveReceiving(skillPoints);
+//                                skillPoints -= Input;
+//                                notPassing = false;
+//                            } else {
+//                                System.out.println("out of range, please re-input:");
+//                            }
+//                        } catch (InputMismatchException e) {
+//                            System.out.println("out of range, please re-input:");
+//                        }
+//                    } else {
+////                System.out.println("you have no more point to distribute");
+//                        notPassing = false;
+//                    }
+//                }//set family love
             }//set up attributes
+            {
+                System.out.println("ok, your attributes are following:");
+                System.out.println("name: " + darwin.getName());
+                System.out.println("biological gender in the documents : " + darwin.getGender());
+                System.out.println("IQ = " + darwin.getIQ());
+                System.out.println("EQ = " + darwin.getEQ());
+                System.out.println("Appearance = " + darwin.getLook());
+                System.out.println("body's physical condition = " + darwin.getHealth());
+                System.out.println("the wealthiness of the family you were born to = " + darwin.getWealth());
+                System.out.println("how fateful you are = " + darwin.getLove());
+            }//list out all the random default attribute
         }
+
         System.out.println("\nage 0:");
         events age = new events(darwin.getGameMode());
         darwin = age.simulation(0,darwin);
+        System.out.println();
+        System.out.println("enter \"enter\" to go to the next simulation,\n" +
+                "enter anything else to check the stat.");
+        for (int i = 0; i < 4; i++) {
+            darwin.addAge();
+            System.out.println("age: " + darwin.getAge());
+            darwin = age.simulation(darwin.getAge(),darwin);
+            if (scan.nextLine().isEmpty()){
+                System.out.println();
+                break;
+            }else{
+                System.out.println();
+                {
+                    System.out.println("ok, your attributes are following:");
+                    System.out.println("name: " + darwin.getName());
+                    System.out.println("biological gender in the documents : " + darwin.getGender());
+                    System.out.println("IQ = " + darwin.getIQ());
+                    System.out.println("EQ = " + darwin.getEQ());
+                    System.out.println("Appearance = " + darwin.getLook());
+                    System.out.println("body's physical condition = " + darwin.getHealth());
+                    System.out.println("the wealthiness of the family you were born to = " + darwin.getWealth());
+                    System.out.println("how fateful you are = " + darwin.getLove());
+                }
+                System.out.println("\n\n\n\n\n");
+            }
+
+        }
 
     }
 }
