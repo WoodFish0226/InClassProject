@@ -242,23 +242,26 @@ public class Main {
                     }
                 } while (notPassing && darwin.getAge() == 7);
             }
-            if(darwin.getGameMode().equals("Asia")){
-                if(darwin.getSchool() && darwin.getIQ() < 23) {
-                    System.out.println("school is overwhelming you (-mental health)");
-                    darwin.increaseMentalHealthBy(-1);
-                }
-            } else if (darwin.getGameMode().equals("USA")) {
-                if ((((Math.random() / 10.0) +Math.random())  * Math.random() > 0.8)){
-                    System.out.println("you encountered a school shooting, RIP");
-                    darwin.setAlive(false);
-                }
-            } else if (darwin.getGameMode().equals("Europe")) {
-                if ((((Math.random() / 10.0) +Math.random())  * Math.random() > 0.8)){
-                    System.out.println("you contacted drug (wealth -7, health -7, Appearance -7");
-                    if (darwin.getLove() > 15){
-                        System.out.println("luckily, you parents love you and you get rid of the addiction the same year");
-                        System.out.println("achievement: do they really love you? or they are just concerned that " +
-                                "buying drug is expensive.");
+            {
+                if (darwin.getGameMode().equals("Asia")) {
+                    if (darwin.getSchool() && darwin.getIQ() < 23 && darwin.getAge() > 12) {
+                        System.out.println("school is overwhelming you (-mental health)");
+                        darwin.increaseMentalHealthBy(-1);
+                    }
+                } else if (darwin.getGameMode().equals("USA")) {
+                    if ((((Math.random() / 10.0) + Math.random()) * Math.random() > 0.9) && darwin.getAge() > 7 && darwin.getAge() < 20) {
+                        System.out.println("you encountered a school shooting, RIP");
+                        System.out.println("achievement: god bless USA~");
+                        darwin.setAlive(false);
+                    }
+                } else if (darwin.getGameMode().equals("Europe")) {
+                    if ((((Math.random() / 10.0) + Math.random()) * Math.random() > 0.8) && darwin.getAge() > 12) {
+                        System.out.println("you contacted drug (wealth -7, health -7, Appearance -7");
+                        if (darwin.getLove() > 15) {
+                            System.out.println("luckily, you parents love you and you get rid of the addiction the same year");
+                            System.out.println("achievement: do they really love you? or they are just concerned that " +
+                                    "buying drug is expensive.");
+                        }
                     }
                 }
             }
