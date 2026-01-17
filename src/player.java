@@ -20,7 +20,7 @@ public class player {
     public player (){ //default inout
         age = 0;
         gameMode = "USA";   //USA
-        this.IQ = (int)(Math.random() * 30) + 1;
+        this.IQ = (int)(Math.random() * 33) + 1;
         skillPoints -= IQ;
         this.EQ = (int)(Math.random() * (skillPoints/3)) + 1;
         skillPoints -= EQ;

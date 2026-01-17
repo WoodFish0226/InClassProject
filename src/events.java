@@ -544,6 +544,32 @@ public class events {
                 }
                 break;
             }
+            case 21:{
+                if (!condition.equals("village")){
+                    if (school){
+                        int RandLine = (int)(Math.random() * fileData12to20PoorSchool.toArray().length);
+                        System.out.println(fileData12to20PoorSchool.get(RandLine));
+                        player.changes(player, fileData12to20PoorSchool.get(RandLine));
+                    }else{
+                        int RandLine = (int)(Math.random() * fileData12to20PoorNoSchool.toArray().length);
+                        System.out.println(fileData12to20PoorNoSchool.get(RandLine));
+                        player.changes(player, fileData12to20PoorNoSchool.get(RandLine));
+                    }
+                }else{
+                    int RandLine = (int)(Math.random() * fileData12to20School.toArray().length);
+                    System.out.println(fileData12to20School.get(RandLine));
+                    player.changes(player, fileData12to20School.get(RandLine));
+                }
+                break;
+            }
+            case 22:{
+                if(school){
+                    System.out.println("you graduated from school!");
+                    System.out.println("the remained time of your life will be written by urself.");
+                    System.out.println("achievement: Burned out");
+                }
+            }
+
 
         }
         return player;
