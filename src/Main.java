@@ -31,6 +31,7 @@ public class Main {
                 Input = scan.nextInt();
                 if (Input % 2 == 0) {
                     System.out.println("please enter your name: ");
+                    scan.nextLine();
                     darwin.name(scan.nextLine());
                 } else {
                     String tempName = util.RandName();
@@ -214,17 +215,61 @@ public class Main {
         System.out.println();
         System.out.println("enter \"enter\" to go to the next simulation,\n" +
                 "enter anything else to check the stat.");
-        for (int i = 0; i < 4; i++) {
+        System.out.println();
+
+        String temp = "";
+        while(!temp.equals("suicide") && darwin.getAlive()) {
             darwin.addAge();
             System.out.println("age: " + darwin.getAge());
-            darwin = age.simulation(darwin.getAge(),darwin);
-            if (scan.nextLine().isEmpty()){
+            boolean notPassing = true;
+            if (darwin.getAge() == 7) {
+                do {
+                    if (age.getCondition().equals("village")) {
+                        System.out.println("1 as yes and 2 as no:\n" +
+                                "are you going to school?");
+                        String tempStr = scan.nextLine();
+                        try {
+                            Input = Integer.parseInt(tempStr);
+                        } catch (NumberFormatException e) {
+                            break;
+                        }
+                        darwin.goingSchool(!((Input & 2) == 0));
+                        age.setSchool(!((Input & 2) == 0));
+                        notPassing = false;
+                    } else {
+                        System.out.println("you are going to school!");
+                        notPassing = false;
+                    }
+                } while (notPassing && darwin.getAge() == 7);
+            }
+            if(darwin.getGameMode().equals("Asia")){
+                if(darwin.getSchool() && darwin.getIQ() < 23) {
+                    System.out.println("school is overwhelming you (-mental health)");
+                    darwin.increaseMentalHealthBy(-1);
+                }
+            } else if (darwin.getGameMode().equals("USA")) {
+                if ((((Math.random() / 10.0) +Math.random())  * Math.random() > 0.8)){
+                    System.out.println("you encountered a school shooting, RIP");
+                    darwin.setAlive(false);
+                }
+            } else if (darwin.getGameMode().equals("Europe")) {
+                if ((((Math.random() / 10.0) +Math.random())  * Math.random() > 0.8)){
+                    System.out.println("you contacted drug (wealth -7, health -7, Appearance -7");
+                    if (darwin.getLove() > 15){
+                        System.out.println("luckily, you parents love you and you get rid of the addiction the same year");
+                        System.out.println("achievement: do they really love you? or they are just concerned that " +
+                                "buying drug is expensive.");
+                    }
+                }
+            }
+            darwin = age.simulation(darwin.getAge(), darwin);
+            temp = scan.nextLine();
+            if (temp.isEmpty()) {
                 System.out.println();
-                break;
-            }else{
+            } else {
                 System.out.println();
                 {
-                    System.out.println("ok, your attributes are following:");
+                    System.out.println("your attributes are following:");
                     System.out.println("name: " + darwin.getName());
                     System.out.println("biological gender in the documents : " + darwin.getGender());
                     System.out.println("IQ = " + darwin.getIQ());
@@ -234,10 +279,8 @@ public class Main {
                     System.out.println("the wealthiness of the family you were born to = " + darwin.getWealth());
                     System.out.println("how fateful you are = " + darwin.getLove());
                 }
-                System.out.println("\n\n\n\n\n");
+                System.out.println("\n\n\n\n");
             }
-
         }
-
     }
 }

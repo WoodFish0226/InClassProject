@@ -15,6 +15,7 @@ public class player {
     private boolean boy;
     private int mentalHealth = 100;
     private String BornIn;
+    private boolean school = false;
 
     public player (){ //default inout
         age = 0;
@@ -38,7 +39,7 @@ public class player {
     public void grow(){
         age++;
     }
-
+    public void setAlive(boolean Boolean){alive =Boolean;}
     public void setEQ(int EQ) {
         this.EQ = EQ;
     }
@@ -64,6 +65,7 @@ public class player {
     public void setGender(int EvenOrOdd){boy = EvenOrOdd % 2 == 1;}
     public void setMentalHealth(int mentalHealth){this.mentalHealth = mentalHealth;}
     public void addAge(){age++;}
+    public void goingSchool(boolean Boolean){school = Boolean;}
 
     public String getGameMode(){return gameMode;}
     public int getAge(){return age;}
@@ -75,6 +77,8 @@ public class player {
     public int getWealth(){return wealth;}
     public int getLove(){return loveReceiving;}
     public int getLuck(){return luck;}
+    public boolean getSchool(){return school;}
+    public boolean getAlive(){return alive;}
     public String getGender(){
         if(boy)return "female";
         else return "male";
@@ -89,23 +93,57 @@ public class player {
     public void increaseLuckBy(int integer){luck += integer;}
 
     public player changes(player player ,String line){
-        line= line.toLowerCase();
-        line=line.substring(line.indexOf("("),line.indexOf(")"));
-        String[] Line = line.split(",");
-        for (String eachUnit : Line){
-            String each = eachUnit.substring(2);
-            int value = 1;
-            if (eachUnit.substring(0,1).equals("-")) {value = -1;}
-            if (each.equals("iq")){increaseIQBy(value);}
-            if (each.equals("eq")){increaseEQBy(value);}
-            if (each.equals("look")){increaseLookBy(value);}
-            if (each.equals("health")){increaseHealthBy(value);}
-            if (each.equals("wealth")){increaseWealthBy(value);}
-            if (each.equals("lovereceiving")){increaseLoveReceivingBy(value);}
-            if (each.equals("mentalhealth")){increaseMentalHealthBy(value);}
-            if (each.equals("luck")){increaseLuckBy(value);}
+        try{
+            line= line.toLowerCase().replaceAll("\\s+", "");;
+            line=line.substring(line.indexOf("(")+1,line.indexOf(")"));
+            String[] Line = line.split(",");
+            for (String eachUnit : Line){
+                String each = eachUnit.substring(1);
+                int value = 1;
+                if (eachUnit.substring(0,1).equals("-")) {value = -1;}
+                if (each.equals("iq")){increaseIQBy(value);}
+                if (each.equals("eq")){increaseEQBy(value);}
+                if (each.equals("look")){increaseLookBy(value);}
+                if (each.equals("health")){increaseHealthBy(value);}
+                if (each.equals("wealth")){increaseWealthBy(value);}
+                if (each.equals("lovereceiving")){increaseLoveReceivingBy(value);}
+                if (each.equals("mentalhealth")){increaseMentalHealthBy(value);}
+                if (each.equals("luck")){increaseLuckBy(value);}
+            }
+        } catch (StringIndexOutOfBoundsException e) {
+            return player;
         }
-        System.out.println("changed");
+        if (health < 0) {
+            System.out.println("you encountered a sudden death, RIP");
+            System.out.println("achievement; wow, that is so sudden");
+            alive = false;
+        }
+        if (wealth < 0){
+            System.out.println("you or your family had contact with gambling, " +
+                    "you lost all your wealth. you died homeless");
+            System.out.println("achievement: fell below the kill line.");
+            alive = false;
+        }
+        if (luck < 0) {
+            System.out.println("RIP, a lost control truck hit you.");
+            System.out.println("achievement: welcome to the I-sekai");
+            alive = false;
+        }
+        if (loveReceiving < 0){
+            System.out.println("no body love you, you had a boring life and died along");
+            System.out.println("achievement: exist before present");
+            alive = false;
+        }
+        if (mentalHealth < 0){
+            System.out.println("you can't withstand the harsh life and so you jumped off the Brooklyn bridge");
+            System.out.println("achievement: free fall experiment");
+            alive = false;
+        }
+        if (look < 0){
+            System.out.println("you are too ugly, a random person cannot with stand you, you go stabbed");
+            System.out.println("achievement: Maybe take a trip to South Korea next time");
+            alive = false;
+        }
         return player;
     }
 }
